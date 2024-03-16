@@ -1,0 +1,6 @@
+docker run -d -p 8080:8080 -p 1980:1980 \
+--mount type=bind,source=/Volumes/3TB/plone_var,target=/plone/instance/backups \
+--name=plone \
+-t plone
+#-v /Users/tony/plone_var:/plone/instance/var \
+
