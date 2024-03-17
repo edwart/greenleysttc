@@ -66,8 +66,44 @@ sub scrape {
 		    and lc($_[0]->attr('id')) eq 'datatable'
 	  }
 	);
+	my $editted_table = edit_html_table($table->as_HTML);
 	save_data("mainsite.html", $table->as_HTML);
 	return $table->as_HTML;
+}
+sub edit_html_table {
+	my ($html) = @_;
+	$html =~ s/<tr>/££<tr>/g;
+	$html =~ s/<thead>/££<thead>/g;
+	$html =~ s/<tbody>/££<tbody>/g;
+	$html =~ s/<td>/££<td>/g;
+	$html =~ s/<th>/££<th>/g;
+	my @rows = split('££', $html);
+	my @newrows = ();
+	push(@newrows, shift @rows);
+	my $colno = 0;
+	my $tablerowno = 0;
+	my $tablecolno = 0;
+
+	my @table = ();
+	foreach my $row (@rows) {
+		$colno = 0 if $row =~ m/<tr>/;
+		my $value = $row;
+		$value =~ s/^<t.>//;
+		$value =~ s/<\/t.>$//;
+		$tablerowno++ if $row =~ m/<tr>/;
+		$tablecolno=0 if $row =~ m/<tr>/;
+		if ($colno != 3 and $colno != 5 and $colno != 7) {
+		$table[$tablerowno][$tablecolno] = $value;
+			push(@newrows, $row);
+			$tablecolno++;
+		}
+		$colno++;
+	}
+
+	print Dumper { rows => \@rows, table =>\@table };
+
+
+
 }
 sub save_data {
 	my ($filename, $content) = @_;
