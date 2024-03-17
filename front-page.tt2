@@ -1,0 +1,23 @@
+allow_discussion: 
+exclude_from_nav: False
+id: front-page
+title: Greenleys Table Tennis Club
+description: Greenleys Table Tennis Club
+subjects: 
+language: en-gb
+effective: 
+expires: 
+creators: admin
+contributors: 
+rights: 
+relatedItems: 
+changeNote: 
+versioning_enabled: True
+table_of_contents: 
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+Portal-Type: Document
+
+<div class="hero"> 
+[% body %]
+</div>
